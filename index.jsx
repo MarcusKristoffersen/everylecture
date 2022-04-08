@@ -1,6 +1,6 @@
 import React, {useState} from "react"
 import ReactDOM from "react-dom"
-import {Routes, Route, Link, BrowserRouter} from "react-router-dom"
+import {Routes, Route, Link, BrowserRouter, useNavigate} from "react-router-dom"
 
 const MOVIES = [
     {
@@ -26,25 +26,36 @@ function FrontPage() {
 }
 
 function ListMovies({movies}) {
-    return <div>
-        <h1> List Movies </h1>
+    const navigate = useNavigate();
+
+    function backToFrontPage(e) {
+        e.preventDefault();
+        navigate("/")
+    }
+
+        return <form onSubmit={backToFrontPage}>
+            <button>To the menu</button>
+            <h1> List Movies </h1>
             {movies.map(m =>
                 <div key={m.title}>
                     <h2>{m.title} ({m.year})</h2>
                     <div>{m.plot}</div>
                 </div>
             )}
-    </div>;
+        </form>;
 }
 
-function NewMovie() {
+function NewMovie({onAddMovie}) {
     const [title, setTitle] = useState("");
     const [year, setYear] = useState("");
     const [plot, setPlot] = useState("");
 
+    const navigate = useNavigate();
+
     function handleSubmit(e) {
         e.preventDefault();
-        MOVIES.push({title, year, plot});
+        onAddMovie({title, year, plot});
+        navigate("/movies")
     }
 
     return <form onSubmit={handleSubmit}>
@@ -59,9 +70,6 @@ function NewMovie() {
             <label>Plot: <textarea value={plot} onChange={e => setPlot(e.target.value)} /> </label>
         </div>
         <button>Submit</button>
-        <pre>
-            {JSON.stringify({title, year, plot})}
-        </pre>
     </form>;
 }
 
@@ -70,7 +78,7 @@ function Application() {
         <Routes>
             <Route path="/" element={<FrontPage />} />
             <Route path="/movies" element={<ListMovies movies={MOVIES}/>} />
-            <Route path="/movies/new" element={<NewMovie/>} />
+            <Route path="/movies/new" element={<NewMovie onAddMovie={m => MOVIES.push(m)}/>} />
         </Routes>
     </BrowserRouter>;
 }
