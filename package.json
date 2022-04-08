@@ -1,12 +1,27 @@
 {
   "name": "everylecture",
   "version": "1.0.0",
-  "description": "",
+  "description": "## Whirlwind tour of the course",
   "main": "index.js",
   "scripts": {
+    "dev": "parcel index.html",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MarcusKristoffersen/everylecture.git"
+  },
+  "bugs": {
+    "url": "https://github.com/MarcusKristoffersen/everylecture/issues"
+  },
+  "homepage": "https://github.com/MarcusKristoffersen/everylecture#readme",
+  "devDependencies": {
+    "parcel": "^2.4.1"
+  },
+  "dependencies": {
+    "react-dom": "^18.0.0"
+  }
 }
