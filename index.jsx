@@ -2,7 +2,7 @@ import React from "react"
 import ReactDOM from "react-dom"
 import {Routes, Route, Link, BrowserRouter} from "react-router-dom"
 
-const movies = [
+const MOVIES = [
     {
         title: "The Matrix",
         plot: "A computer hacker learn from mysterious rebels about the true nature of his reality and his role in the war against its controllers.",
@@ -25,11 +25,11 @@ function FrontPage() {
     </div>;
 }
 
-function ListMovies() {
+function ListMovies({movies}) {
     return <div>
         <h1> List Movies </h1>
             {movies.map(m =>
-                <div>
+                <div key={m.title}>
                     <h2>{m.title} ({m.year})</h2>
                     <div>{m.plot}</div>
                 </div>
@@ -41,7 +41,7 @@ function Application() {
     return <BrowserRouter>
         <Routes>
             <Route path="/" element={<FrontPage />} />
-            <Route path="/movies" element={<ListMovies />} />
+            <Route path="/movies" element={<ListMovies movies={MOVIES}/>} />
             <Route path="/movies/new" element={<h1> New Movie </h1>} />
         </Routes>
     </BrowserRouter>;
