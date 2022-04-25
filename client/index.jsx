@@ -44,7 +44,7 @@ function NewMovie({moviesApi}) {
     async function handleSubmit(e) {
         e.preventDefault();
         await moviesApi.onAddMovie({title, year, plot});
-        navigate("/movies")
+        navigate("/");
     }
 
     return <form onSubmit={handleSubmit}>
@@ -64,7 +64,15 @@ function NewMovie({moviesApi}) {
 
 function Application() {
     const moviesApi = {
-        onAddMovie: async (m) => MOVIES.push(m),
+        onAddMovie: async (m) => {
+            await fetch("/api/movies", {
+                method: "POST",
+                headers: {
+                    "content-type": "application/json"
+                },
+                body: JSON.stringify(m)
+            })
+        },
         listMovies: async () => {
             const res = await fetch("/api/movies");
             return res.json();
