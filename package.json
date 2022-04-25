@@ -4,26 +4,28 @@
   "description": "## Whirlwind tour of the course",
   "main": "index.js",
   "scripts": {
-    "dev": "parcel index.html",
+    "start": "cd server && npm start",
+    "dev": "concurrently npm:dev:server npm:dev:client",
+    "dev:server": "cd server && npm run dev",
+    "dev:client": "cd client && npm run dev",
+    "build": "npm run build:client && npm run build:server",
+    "build:client": "cd client && npm install --include=dev && npm run build",
+    "build:server": "cd server && npm install",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^7.1.0"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/MarcusKristoffersen/everylecture.git"
   },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "bugs": {
     "url": "https://github.com/MarcusKristoffersen/everylecture/issues"
   },
-  "homepage": "https://github.com/MarcusKristoffersen/everylecture#readme",
-  "devDependencies": {
-    "parcel": "^2.4.1"
-  },
-  "dependencies": {
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0",
-    "react-router-dom": "^6.3.0"
-  }
+  "homepage": "https://github.com/MarcusKristoffersen/everylecture#readme"
 }
+
